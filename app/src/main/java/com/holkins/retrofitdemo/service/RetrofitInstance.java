@@ -11,15 +11,17 @@ public class RetrofitInstance {
 
     public static CountryService getService() {
 
-        if (retrofit==null){
+        if (retrofit == null) {
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
+
         }
 
         return retrofit.create(CountryService.class);
+
     }
 
 }

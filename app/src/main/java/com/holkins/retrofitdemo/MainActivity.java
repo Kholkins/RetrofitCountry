@@ -1,9 +1,11 @@
 package com.holkins.retrofitdemo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.holkins.retrofitdemo.Model.CountryInfo;
 import com.holkins.retrofitdemo.Model.Result;
@@ -38,19 +40,26 @@ public class MainActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<CountryInfo>() {
             @Override
-            public void onResponse(Call<CountryInfo> call, Response<CountryInfo> response) {
+            public void onResponse(Call<CountryInfo> call,
+                                   Response<CountryInfo> response) {
 
                 CountryInfo countryInfo = response.body();
 
-                if(countryInfo != null && countryInfo.getRestResponse() != null){
+                if (countryInfo != null && countryInfo.getRestResponse() != null) {
 
-                    resultArrayList = (ArrayList<Result>) countryInfo.getRestResponse().getResult();
+                    resultArrayList =
+                            (ArrayList<Result>) countryInfo.getRestResponse()
+                                    .getResult();
+
+                    for (Result result : resultArrayList) {
+
+                        Log.d("resultArrayList: ", result.getName());
+
+                    }
+
+                    fillRecyclerView();
 
                 }
-//                 for (Result result : resultArrayList) {
-//
-//                     Log.d("resultArrayList: ", result.getName());
-//                 }
 
             }
 
@@ -61,5 +70,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
         return resultArrayList;
+
+    }
+
+    private void fillRecyclerView() {
+
+        recyclerView = findViewById(R.id.recyclerView);
+        adapter = new CountryAdapter(resultArrayList);
+        RecyclerView.LayoutManager layoutManager =
+                new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+
     }
 }
