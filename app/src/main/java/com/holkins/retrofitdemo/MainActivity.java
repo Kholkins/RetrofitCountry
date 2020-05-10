@@ -1,11 +1,13 @@
 package com.holkins.retrofitdemo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
 import com.holkins.retrofitdemo.Model.CountryInfo;
 import com.holkins.retrofitdemo.Model.Result;
+import com.holkins.retrofitdemo.adapters.CountryAdapter;
 import com.holkins.retrofitdemo.service.CountryService;
 import com.holkins.retrofitdemo.service.RetrofitInstance;
 
